@@ -4,6 +4,7 @@ class Employee:
         self.first_name = first_name
         self.last_name = last_name
         self.id = id
+        
 
     def createClient(self, first_name, last_name, cpf, email, password):
         pass
@@ -13,3 +14,13 @@ class Employee:
         pass
     def listClients(self):
         pass
+
+    def rent(self, item, client):
+        if item.status == 'rented':
+            print('item já está alugado.')
+            return false
+        else:
+            item.status = 'rented'
+            print("item alugado com sucesso")
+            client.listItems.append(item) #status alugado
+            return true
