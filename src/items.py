@@ -6,11 +6,6 @@ class Items:
         self.value = value
         self.description = description
         self.status = status
-    
-    def __str__(self):
-        return "Item name: {}, ID_ITEM: {}, Value: {}, Description: {}, Status: {}".format(
-            self.item_name, self.id_item, self.value, self.description, self.status
-        )
 
     def create(self):
         pass
