@@ -1,34 +1,21 @@
 from employee import Employee
+from item import Item
+from client import Client
+
 
 class AdminEmployee(Employee):
-    def __init__(self, first_name, last_name, id):
-        super(AdminEmployee, self).__init__(first_name, last_name, id)
+    def __init__(self, first_name, last_name):
+        super(AdminEmployee, self).__init__(first_name, last_name, 'Admin')
         pass
 
-    def createEmployee(self):
-        pass
-    def deleteEmployee(self):
-        pass
-    def updateEmployee(self):
-        pass
-    def listEmployees(self):
-        pass
-    def createClient(self):
-        pass
-    def deleteClient(self):
-        pass
-    def updateClient(self):
-        pass
-    def listClients(self):
-        pass
-    def createItem(self):
-        pass
-    def deleteItem(self):
-        pass
-    def updateItem(self):
-        pass
-    def listItems(self):
-        pass
+    def createItem(self, system):
+        print('\n\n------ CRIAR ITEM ------\n\n')
+        name = input('Nome:')
+        value = input('Valor (R$):')
+        description = input('Descrição:')
+
+        system.itemsContainer.append(Item(name, value, description))
+        print('\nItem adicionado com sucesso!\n')
 
 
 
