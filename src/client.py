@@ -6,7 +6,13 @@ class Client:
         self.email = email
         self.phone = phone
         self.rentedItems = []
-        pass
+        
+
+    def __str__(self):
+        return "First Name: {}, Last Name: {}, CPF: {}, Email: {}, Phone: {}, Rented Items {}".format(
+            self.first_name, self.last_name, self.cpf, self.email, self.phone, self.rentedItems
+        )
+
     def create(self):
         pass
     def update(self):
