@@ -1,6 +1,6 @@
 from client import Client
+import globalContent
 class Employee:
-
     def __init__(self):
         self.first_name = ""
         self.last_name = ""
@@ -9,7 +9,6 @@ class Employee:
         self.first_name = kwargs['first_name']
         self.last_name = kwargs['last_name']
         self.id = kwargs['id']
-        self.system = kwargs['system']
     
     def __str__(self):
         return "First Name: {}, Last Name: {}, ID: {}".format(
@@ -21,21 +20,21 @@ class Employee:
         client = Client(first_name, last_name, cpf, email, password)
         return client
         
-    def searchClient(self, clientContainer, cpf):
-        for i in clientContainer:
+    def searchClient(self, cpf):
+        for i in globalContent.database.clientContainer:
             if i.cpf == cpf :
                 return i
         
-    def deleteClient(self, clientContainer, cpf):
-        for i in clientContainer:
+    def deleteClient(self, cpf):
+        for i in globalContent.database.clientContainer:
             if i.cpf == cpf:
-                clientContainer.remove(i)
+                globalContent.database.clientContainer.remove(i)
                 
         
-    def updateClient(self, clientContainer, client, 
+    def updateClient(self, client, 
         first_name = "", last_name = "",
          cpf = "", email = "", phone = ""):
-        for i in clientContainer:
+        for i in globalContent.database.clientContainer:
             if i == client:
                 if(first_name == ""): i.first_name = i.first_name 
                 else:
@@ -56,7 +55,7 @@ class Employee:
     def listClients(self):
         print("\n----------Lista de clientes-------")
         idx = 1
-        for i in self.system.clientContainer:
+        for i in globalContent.database.clientContainer:
             print('('+str(idx)+')' + str(i))
             idx = idx + 1
         
@@ -71,10 +70,10 @@ class Employee:
             client.rentedItems.append(item) #status alugado
             return True
 
-    def updateItem(self, itemsContainer, item, item_name="", id_item=-1,
+    def updateItem(self, item, item_name="", id_item=-1,
         value=-1, description="", status = ""
     ):
-        for i in itemsContainer:
+        for i in globalContent.database.itemsContainer:
             if i == item:
                 if item_name == "": i.item_name = i.item_name
                 else:
@@ -97,15 +96,15 @@ class Employee:
                     i.status = status
 
         
-    def searchItem(self, itemsContainer, id_item):
-        for i in itemsContainer:
+    def searchItem(self, id_item):
+        for i in globalContent.database.itemsContainer:
             if i.id_item == id_item:
                 return i
         
     def listItems(self):
         print('\n----- Lista de Itens -----\n')
         idx = 1
-        for i in self.system.itemsContainer:
+        for i in globalContent.database.itemsContainer:
             print('('+str(idx)+')' + str(i))
             idx = idx + 1
         
@@ -137,7 +136,7 @@ class Employee:
                 item = input('\nItem que será alugado: ')
                 self.listClients()
                 client = input('\nCliente a alugar: ')
-                self.rent(self.system.itemsContainer[int(item) - 1], self.system.clientContainer[int(client) - 1])
+                self.rent(globalContent.database.itemsContainer[int(item) - 1], globalContent.database.clientContainer[int(client) - 1])
             elif(option == '3'): break
 
 

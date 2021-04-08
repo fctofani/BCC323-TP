@@ -1,3 +1,5 @@
+import globalContent
+
 from employee import Employee
 from commonEmployee import CommonEmployee
 from items import Items
@@ -18,20 +20,20 @@ class AdminEmployee(Employee):
         admin = AdminEmployee(**kwargs)
         return admin
 
-    def deleteEmployee(self, employeeContainer, id):
-        for i in employeeContainer:
+    def deleteEmployee(self, id):
+        for i in globalContent.database.employeeContainer:
             if i.id == id:
-                employeeContainer.remove(i)
+                globalContent.database.employeeContainer.remove(i)
         
-    def searchEmployee(self, employeeContainer, id):
-        for i in employeeContainer:
+    def searchEmployee(self, id):
+        for i in globalContent.database.employeeContainer:
             if i.id == id:
                 return i
         
-    def updateEmployee(self, employeeContainer,
+    def updateEmployee(self,
         employee, first_name="", last_name="", id=-1 ):
         
-        for i in employeeContainer:
+        for i in globalContent.database.employeeContainer:
             if i == employee:
                 if first_name == "":
                     i.first_name = i.first_name
@@ -48,7 +50,7 @@ class AdminEmployee(Employee):
     def listEmployees(self):
         print("\n------Lista de funcionários-------\n")
         idx = 1
-        for i in self.system.employeeContainer:
+        for i in globalContent.database.employeeContainer:
             print('('+str(idx)+')' + str(i))
             idx = idx + 1
 

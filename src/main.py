@@ -1,6 +1,4 @@
-from system import System
+# from system import System
+import globalContent
 
-system = System()
-system.generateClientAndEmployees()
-system.generateItems()
-system.run()
+globalContent.database.run()

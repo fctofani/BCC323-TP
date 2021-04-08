@@ -4,10 +4,9 @@ from commonEmployee import CommonEmployee
 from client import Client
 from items import Items
 
-
 class System:
     def __init__(self):
-        self.admin = AdminEmployee(first_name="Seu Tião", last_name="Meireles", id=0, system = self)
+        self.admin = AdminEmployee(first_name="Seu Tião", last_name="Meireles", id=0)
         # self.commonEmp = CommonEmployee(first_name="", last_name="", id=0)
         self.userLogged = None
         self.itemsContainer = []
@@ -21,16 +20,16 @@ class System:
     def generateClientAndEmployees(self):
         #Insert employees 
         self.employeeContainer.append(self.admin.createCommonEmployee(
-            first_name = "Lucas",last_name =  "Natali", id = 990, system = self
+            first_name = "Lucas",last_name =  "Natali", id = 990
         ))
         self.employeeContainer.append(self.admin.createCommonEmployee(
-            first_name = "Geraldo", last_name = "Azevedo", id = 992, system = self
+            first_name = "Geraldo", last_name = "Azevedo", id = 992
         ))
         self.employeeContainer.append(self.admin.createCommonEmployee(
-            first_name = "Ademir",last_name =  "edivaldo", id = 993, system = self
+            first_name = "Ademir",last_name =  "edivaldo", id = 993
         ))
         self.employeeContainer.append(self.admin.createCommonEmployee(
-            first_name = "marlon", last_name = "ponei", id =994, system = self
+            first_name = "marlon", last_name = "ponei", id =994
         ))
 
         '''Create Clients by Admin'''
