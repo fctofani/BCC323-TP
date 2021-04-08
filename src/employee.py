@@ -9,6 +9,7 @@ class Employee:
         self.first_name = kwargs['first_name']
         self.last_name = kwargs['last_name']
         self.id = kwargs['id']
+        self.system = kwargs['system']
     
     def __str__(self):
         return "First Name: {}, Last Name: {}, ID: {}".format(
@@ -52,21 +53,23 @@ class Employee:
                 else: 
                     i.phone = phone
               
-    def listClients(self, clients):
-        print("----------Lista de clientes-------")
-        for i in clients:
-            print(i)
+    def listClients(self):
+        print("\n----------Lista de clientes-------")
+        idx = 1
+        for i in self.system.clientContainer:
+            print('('+str(idx)+')' + str(i))
+            idx = idx + 1
         
 
     def rent(self, item, client):
         if item.status == 'rented':
             print('item já está alugado.')
-            return false
+            return False
         else:
             item.status = 'rented'
             print("item alugado com sucesso")
-            client.listItems.append(item) #status alugado
-            return true
+            client.rentedItems.append(item) #status alugado
+            return True
 
     def updateItem(self, itemsContainer, item, item_name="", id_item=-1,
         value=-1, description="", status = ""
@@ -99,7 +102,42 @@ class Employee:
             if i.id_item == id_item:
                 return i
         
-    def listItems(self, itemsContainer):
-        for i in itemsContainer:
-            print(i)
+    def listItems(self):
+        print('\n----- Lista de Itens -----\n')
+        idx = 1
+        for i in self.system.itemsContainer:
+            print('('+str(idx)+')' + str(i))
+            idx = idx + 1
         
+    def showMenuClients(self):
+        while(True):
+            option = input('\n----- MENU ITENS ----- \n'
+                            + '(1) - Listar Clientes\n'
+                            + '(2) - Adicionar Cliente\n'
+                            + '(3) - Editar Cliente\n'
+                            + '(4) - Remover Cliente\n'
+                            + '(5) - SAIR\n')
+            
+            if(option == '1'): self.listClients()
+            elif(option == '2'): print('Ainda não desenvolvido totalmente.')
+            elif(option == '3'): print('Ainda não desenvolvido totalmente.')
+            elif(option == '4'): print('Ainda não desenvolvido totalmente.')
+            elif(option == '5'): break
+
+    def showMenuItems(self):
+        while(True):
+            option = input('\n----- MENU ITENS ----- \n'
+                            + '(1) - Listar Itens\n'
+                            + '(2) - Alugar Item\n'
+                            + '(3) - SAIR\n')
+
+            if(option == '1'): self.listItems()
+            elif(option == '2'):
+                self.listItems()
+                item = input('\nItem que será alugado: ')
+                self.listClients()
+                client = input('\nCliente a alugar: ')
+                self.rent(self.system.itemsContainer[int(item) - 1], self.system.clientContainer[int(client) - 1])
+            elif(option == '3'): break
+
+

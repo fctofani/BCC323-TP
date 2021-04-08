@@ -45,10 +45,13 @@ class AdminEmployee(Employee):
                     i.id = i.id
                 else:
                     i.id = id
-    def listEmployees(self, employees):
-        print("------Lista de funcionários-------")
-        for i in employees:
-            print(i)
+    def listEmployees(self):
+        print("\n------Lista de funcionários-------\n")
+        idx = 1
+        for i in self.system.employeeContainer:
+            print('('+str(idx)+')' + str(i))
+            idx = idx + 1
+
         
     
         
@@ -61,8 +64,33 @@ class AdminEmployee(Employee):
             if i.id_item == id_item:
                 itemsContainer.remove(i)
         
+    def showMenu(self):
+        while(True):
+            option = input('\n----- MENU ADMIN ----- \n'
+                            + '(1) - Itens\n'
+                            + '(2) - Clientes\n'
+                            + '(3) - Funcionários\n'
+                            + '(4) - SAIR\n')
+
+            if(option == '1'): self.showMenuItems()
+            elif(option == '2') : self.showMenuClients()
+            elif(option == '3') : self.showMenuEmployees()
+            elif(option == '4') : break
     
-
-
+    def showMenuEmployees(self):
+        while(True):
+            option = input('----- MENU ITENS ----- \n'
+                            + '(1) - Listar Funcionários\n'
+                            + '(2) - Adicionar Funcionário\n'
+                            + '(3) - Editar Funcionário\n'
+                            + '(4) - Remover Funcionário\n'
+                            + '(5) - SAIR\n')
+            
+            if(option == '1'): self.listEmployees()
+            elif(option == '2'): print('Ainda não desenvolvido totalmente.')
+            elif(option == '3'): print('Ainda não desenvolvido totalmente.')
+            elif(option == '4'): print('Ainda não desenvolvido totalmente.')
+            elif(option == '5'): break
+    
 
     

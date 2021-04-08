@@ -11,14 +11,4 @@ class Items:
         return "Item name: {}, ID_ITEM: {}, Value: {}, Description: {}, Status: {}".format(
             self.item_name, self.id_item, self.value, self.description, self.status
         )
-    def create(self):
-        pass
-    def update(self):
-        pass
-    def delete(self):
-        pass
-    def getItem(self, name):
-        pass
-    def printItems(self):
-        pass
-
+   
