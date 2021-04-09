@@ -4,6 +4,7 @@ class Client:
         self.last_name = last_name
         self.cpf = cpf
         self.email = email
+
         self.phone = phone
         self.rentedItems = []
         

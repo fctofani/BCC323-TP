@@ -16,8 +16,8 @@ class Employee:
         )
     
 
-    def createClient(self, first_name, last_name, cpf, email, password):
-        client = Client(first_name, last_name, cpf, email, password)
+    def createClient(self, first_name, last_name, cpf, email,phone):
+        client = Client(first_name, last_name, cpf, email,phone)
         return client
         
     def searchClient(self, cpf):
