@@ -16,8 +16,8 @@ class Employee:
         )
     
 
-    def createClient(self, first_name, last_name, cpf, email, password):
-        client = Client(first_name, last_name, cpf, email, password)
+    def createClient(self, first_name, last_name, cpf, email,phone):
+        client = Client(first_name, last_name, cpf, email,phone)
         return client
         
     def searchClient(self, cpf):
@@ -62,11 +62,11 @@ class Employee:
 
     def rent(self, item, client):
         if item.status == 'rented':
-            print('item já está alugado.')
+            #print('item já está alugado.')
             return False
         else:
             item.status = 'rented'
-            print("item alugado com sucesso")
+            #print("item alugado com sucesso")
             client.rentedItems.append(item) #status alugado
             return True
 
