@@ -126,71 +126,7 @@ class System:
 
        
 
-        # self.admin.listEmployees(employees=self.employeeContainer)
-        # self.admin.listClients(clients=self.clientContainer)
 
-        # print("----------------------------------------")
-        # print("Buscando um cliente através do admin: ", self.admin.searchClient(
-        #     clientContainer = self.clientContainer,
-        #     cpf="992.002.111-22"
-        # ), "\n")
-        # print("Buscando um cliente através do funcionario comum: ", self.commonEmp.searchClient(
-        #     clientContainer = self.clientContainer,
-        #     cpf="118.008.212-66"
-        # ), "\n")
-        # print("--------------------------------------")
-
-        # print("Deletando o cliente de cpf {} através do admin:  ".format("118.008.212-66"))
-        # self.admin.deleteClient(
-        #         clientContainer=self.clientContainer,
-        #         cpf = "118.008.212-66")
-
-        # print("\nDeletando o cliente de cpf {} através do funcionário comum".format("992.002.111-22"))
-        # self.commonEmp.deleteClient(
-        #     clientContainer=self.clientContainer,
-        #     cpf = "992.002.111-22"
-        # )
-
-        # self.admin.listClients(clients=self.clientContainer)
-
-        # print("Atualizando o cliente de cpf {} através do admin".format("888.225.763-72"))
-        # cli = self.admin.searchClient(self.clientContainer, "888.225.763-72")
-        # self.admin.updateClient(
-        #     clientContainer=self.clientContainer,
-        #     client = cli,
-        #     last_name="arrombada"
-        # )
-        # print("Atualizando o cliente de cpf {} através do admin".format("992.888.111-82"))
-        # cli = self.admin.searchClient(self.clientContainer, "992.888.111-82")
-        # self.admin.updateClient(
-        #     clientContainer=self.clientContainer,
-        #     client = cli,
-        #     last_name = "Dias",
-        #     cpf = "123.456.789-10"
-        # )
-
-        # self.admin.listClients(clients=self.clientContainer)
-
-        # print("Deletando o funcionário de matricula {}:  ".format(990))
-        # self.admin.deleteEmployee(
-        #         employeeContainer=self.employeeContainer,
-        #         id=990
-        # )
-
-        # print("\nDeletando o funcionario de matricula {} ".format(992))
-        # self.admin.deleteEmployee(
-        #     employeeContainer=self.employeeContainer,
-        #     id = 992
-        # )
-        # print("\n Atualizando funcionário de matricula {}".format(993))
-        # emp = self.admin.searchEmployee(self.employeeContainer, 993)
-        # self.admin.updateEmployee(
-        #     employeeContainer= self.employeeContainer,
-        #     employee = emp,
-        #     first_name="Mirosmar",
-        #     last_name="Klose"
-        # )
-        # self.admin.listEmployees(self.employeeContainer)
 
 
         

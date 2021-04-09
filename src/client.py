@@ -14,11 +14,4 @@ class Client:
             self.first_name, self.last_name, self.cpf, self.email, self.phone, self.rentedItems
         )
 
-    def create(self):
-        pass
-    def update(self):
-        pass
-    def delete(self):
-        pass
-    def get(self):
-        pass
+
