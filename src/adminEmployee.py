@@ -64,7 +64,10 @@ class AdminEmployee(Employee):
     def deleteItem(self, itemsContainer, id_item):
         for i in itemsContainer:
             if i.id_item == id_item:
-                itemsContainer.remove(i)
+                if i.status == 'rented':
+                    print("Não é possivel remover")
+                else:
+                    itemsContainer.remove(i)
         
     def showMenu(self):
         while(True):

@@ -62,11 +62,11 @@ class Employee:
 
     def rent(self, item, client):
         if item.status == 'rented':
-            print('item já está alugado.')
+            #print('item já está alugado.')
             return False
         else:
             item.status = 'rented'
-            print("item alugado com sucesso")
+            #print("item alugado com sucesso")
             client.rentedItems.append(item) #status alugado
             return True
 
