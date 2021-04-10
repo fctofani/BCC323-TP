@@ -9,7 +9,7 @@ class Employee:
         self.first_name = kwargs['first_name']
         self.last_name = kwargs['last_name']
         self.id = kwargs['id']
-    
+
     def __str__(self):
         return "First Name: {}, Last Name: {}, ID: {}".format(
             self.first_name, self.last_name, self.id
@@ -18,18 +18,25 @@ class Employee:
 
     def createClient(self, first_name, last_name, cpf, email,phone):
         client = Client(first_name, last_name, cpf, email,phone)
+        globalContent.database.clientContainer.append(client)
         return client
         
     def searchClient(self, cpf):
         for i in globalContent.database.clientContainer:
             if i.cpf == cpf:
                 return i
+        print("cliente não encontrado")
         
     def deleteClient(self, cpf):
         for i in globalContent.database.clientContainer:
             if i.cpf == cpf:
+                print(i.cpf)
+                print(cpf)
                 globalContent.database.clientContainer.remove(i)
-                
+                print("cliente removido")
+                return True
+        print("cliente não encontrado")             
+        return False
         
     def updateClient(self, client, 
         first_name = "", last_name = "",
@@ -69,6 +76,15 @@ class Employee:
             #print("item alugado com sucesso")
             client.rentedItems.append(item) #status alugado
             return True
+
+    def giveBack(self, client):
+        if len(client.rentedItems) > 0:
+            for i in client.rentedItems:
+                i.status = 'available'
+                client.rentedItems.remove(i)
+                print(i.item_name + " devolvido")
+        else:
+            print("cliente não possui itens emprestados")
 
     def updateItem(self, item, item_name="", id_item=-1,
         value=-1, description="", status = ""
@@ -119,6 +135,7 @@ class Employee:
             
             if(option == '1'): self.listClients()
             elif(option == '2'):
+
                 first_name = input("Primeiro nome: ")
                 last_name = input("Ultimo nome:")
                 cpf = input("CPF: ")
@@ -141,12 +158,48 @@ class Employee:
 
             elif(option == '5'): break
 
+                name = input('digite o nome\n')
+                lastName = input('ultimo nome\n')
+                cpf = input('digite o cpf\n')
+                phone = input('digite o telefone\n')
+                email = input('digite o email\n')
+                self.createClient(name, lastName, cpf, email, phone)
+                self.listClients()
+            elif(option == '3'): 
+                searchcpf = input('degite o cpf\n')
+                client = self.searchClient(searchcpf)
+
+                if (client):
+                    print("\n --- dados para editar: \n")
+                    name = input('digite o nome\n')
+                    lastName = input('ultimo nome\n')
+                    cpf = input('digite o cpf\n')
+                    phone = input('digite o telefone\n')
+                    email = input('digite o email\n')
+
+                    self.updateClient(client, name, lastName, cpf, phone, email)
+                    self.listClients()
+                else:
+                    print("erro")
+            elif(option == '4'): 
+                cpf = input('digite o cpf\n')
+                deleted = self.deleteClient(cpf)
+                if deleted:
+                    self.listClients()
+                else:
+                    print('erro ao remover cliente')
+            else: 
+                break
+
+
     def showMenuItems(self):
         while(True):
             option = input('\n----- MENU ITENS ----- \n'
                             + '(1) - Listar Itens\n'
                             + '(2) - Alugar Item\n'
-                            + '(3) - SAIR\n')
+                            + '(3) - Devolver Item\n'
+                            + '(4) - Atualizar Item\n'
+                            + '(5) - SAIR\n')
 
             if(option == '1'): self.listItems()
             elif(option == '2'):
@@ -155,6 +208,23 @@ class Employee:
                 self.listClients()
                 client = input('\nCliente a alugar: ')
                 self.rent(globalContent.database.itemsContainer[int(item) - 1], globalContent.database.clientContainer[int(client) - 1])
-            elif(option == '3'): break
+            elif(option == '3'):
+                cpf = input('\n digite o cpf do cliente que vai devolver: \n')
+                client = self.searchClient(cpf)
+                self.giveBack(client)
+                self.listClients()
+            elif(option == '4'):
+                iditem = input('identificador do item: \n')
+                item = self.searchItem(iditem)
+
+                name = input('digite o novo nome:\n')
+                value = input('digite o novo valor: \n')
+                desc = input('digite a nova descrição\n')
+
+                self.updateItem(item, name, -1, value, desc, "")
+                self.listItems()
+            else:
+                break
+
 
 
