@@ -22,7 +22,7 @@ class Employee:
         
     def searchClient(self, cpf):
         for i in globalContent.database.clientContainer:
-            if i.cpf == cpf :
+            if i.cpf == cpf:
                 return i
         
     def deleteClient(self, cpf):
@@ -110,7 +110,7 @@ class Employee:
         
     def showMenuClients(self):
         while(True):
-            option = input('\n----- MENU ITENS ----- \n'
+            option = input('\n----- MENU Clients ----- \n'
                             + '(1) - Listar Clientes\n'
                             + '(2) - Adicionar Cliente\n'
                             + '(3) - Editar Cliente\n'
@@ -118,9 +118,27 @@ class Employee:
                             + '(5) - SAIR\n')
             
             if(option == '1'): self.listClients()
-            elif(option == '2'): print('Ainda não desenvolvido totalmente.')
-            elif(option == '3'): print('Ainda não desenvolvido totalmente.')
-            elif(option == '4'): print('Ainda não desenvolvido totalmente.')
+            elif(option == '2'):
+                first_name = input("Primeiro nome: ")
+                last_name = input("Ultimo nome:")
+                cpf = input("CPF: ")
+                email = input("Email: ")
+                phone = input("Phone: ")
+                cli = self.createClient(first_name, last_name, cpf, email, phone)
+                globalContent.database.clientContainer.append(cli)
+            elif(option == '3'):
+                cpf = input("CPF do cliente que você deseja buscar: ")
+                cli = self.searchClient(cpf)
+                first_name = input("Primeiro nome: ")
+                last_name = input("Ultimo nome: ")
+                cpf = input("CPF: ")
+                email = input("Email: ")
+                phone = input("Phone: ")
+                self.updateClient(cli, first_name, last_name, cpf, email, phone)
+            elif(option == '4'):
+                cpf = input("Digite o cpf do cliente a ser removido")
+                self.deleteClient(cpf)
+
             elif(option == '5'): break
 
     def showMenuItems(self):

@@ -69,7 +69,7 @@ class AdminEmployee(Employee):
                 else:
                     itemsContainer.remove(i)
         
-    def showMenu(self):
+    def showMenu(self): #Menu admin
         while(True):
             option = input('\n----- MENU ADMIN ----- \n'
                             + '(1) - Itens\n'
@@ -92,9 +92,20 @@ class AdminEmployee(Employee):
                             + '(5) - SAIR\n')
             
             if(option == '1'): self.listEmployees()
-            elif(option == '2'): print('Ainda não desenvolvido totalmente.')
-            elif(option == '3'): print('Ainda não desenvolvido totalmente.')
-            elif(option == '4'): print('Ainda não desenvolvido totalmente.')
+            elif(option == '2'):
+                first_name = input("Nome do funcionário")
+                last_name = input("Ultimo nome do funcionario")
+                id = input("ID:")
+                self.createCommonEmployee(first_name= first_name,last_name= last_name,id=id)
+            elif(option == '3'):
+                id = input("ID do funcionário que deseja alterar:")
+                self.searchEmployee(id)
+                first_name = input("Primeiro nome: ")
+                last_name = input("Ultimo nome: ")
+                self.updateEmployee(first_name, last_name)
+            elif(option == '4'):
+                id = input("Selecione o id do funcionário que deseja remover")
+                self.deleteEmployee(id)
             elif(option == '5'): break
     
 
