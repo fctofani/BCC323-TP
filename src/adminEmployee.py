@@ -59,6 +59,7 @@ class AdminEmployee(Employee):
         
     def createItem(self, item_name, id_item, value, description, status):
         item = Items(id_item, item_name, value, description, status)
+        globalContent.database.itemsContainer.append(item)
         return item
         
     def deleteItem(self, itemsContainer, id_item):
@@ -72,19 +73,21 @@ class AdminEmployee(Employee):
     def showMenu(self):
         while(True):
             option = input('\n----- MENU ADMIN ----- \n'
-                            + '(1) - Itens\n'
+                            + '(1) - Itens Admin\n'
                             + '(2) - Clientes\n'
                             + '(3) - Funcionários\n'
-                            + '(4) - SAIR\n')
+                            + '(4) - Itens\n'
+                            + '(5) - SAIR\n')
 
-            if(option == '1'): self.showMenuItems()
+            if(option == '1'): self.showmenuAdminItem()
             elif(option == '2') : self.showMenuClients()
             elif(option == '3') : self.showMenuEmployees()
-            elif(option == '4') : break
+            elif(option == '4') : self.showMenuItems()
+            else: break
     
     def showMenuEmployees(self):
         while(True):
-            option = input('----- MENU ITENS ----- \n'
+            option = input('----- MENU FUNCIONARIO ----- \n'
                             + '(1) - Listar Funcionários\n'
                             + '(2) - Adicionar Funcionário\n'
                             + '(3) - Editar Funcionário\n'
@@ -96,6 +99,29 @@ class AdminEmployee(Employee):
             elif(option == '3'): print('Ainda não desenvolvido totalmente.')
             elif(option == '4'): print('Ainda não desenvolvido totalmente.')
             elif(option == '5'): break
+
+    def showmenuAdminItem(self):
+        while(True):
+            option = input('------MENU ITENS ------- \n'
+                           + '(1) - adicionar itens \n'
+                           + '(2) - remover itens \n'
+                           + '(3) - sair\n' )
+
+            if (option == '1'):
+                name = input('digite o nome do item:\n')
+                itemid = 'item' + str(len(globalContent.database.itemsContainer) + 1)
+                value = input('digite o valor:\n')
+                description = input('digite a descrição\n')
+
+                self.createItem(name, itemid, value, description, 'available')
+                self.listItems()
+
+            elif(option == '2'):
+                itemid = input('id p remover\n')
+                self.deleteItem(globalContent.database.itemsContainer, itemid)
+                self.listItems()
+            else:
+                break
     
 
     
