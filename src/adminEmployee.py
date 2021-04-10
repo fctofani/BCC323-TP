@@ -15,19 +15,23 @@ class AdminEmployee(Employee):
 
     def createCommonEmployee(self, **kwargs):
         common = CommonEmployee(**kwargs)
+        globalContent.database.employeeContainer.append(common)
         return common
     def createAdminEmployee(self, **kwargs):
         admin = AdminEmployee(**kwargs)
+        globalContent.database.employeeContainer.append(admin)
         return admin
 
-    def deleteEmployee(self, id):
+    def deleteEmployee(self, empid):
         for i in globalContent.database.employeeContainer:
-            if i.id == id:
+            if i.id == empid:
                 globalContent.database.employeeContainer.remove(i)
+                return True
+        return False
         
-    def searchEmployee(self, id):
+    def searchEmployee(self, empid):
         for i in globalContent.database.employeeContainer:
-            if i.id == id:
+            if i.id == empid:
                 return i
         
     def updateEmployee(self,
@@ -95,10 +99,41 @@ class AdminEmployee(Employee):
                             + '(5) - SAIR\n')
             
             if(option == '1'): self.listEmployees()
-            elif(option == '2'): print('Ainda não desenvolvido totalmente.')
-            elif(option == '3'): print('Ainda não desenvolvido totalmente.')
-            elif(option == '4'): print('Ainda não desenvolvido totalmente.')
-            elif(option == '5'): break
+            elif(option == '2'): 
+                print("\n novo funcionário: \n")
+                name = input("digite o nome: \n")
+                lastname = input("digite o ultimo nome:\n")
+                empid = len(globalContent.database.employeeContainer) + 1
+
+                emp = self.createCommonEmployee(first_name=name, last_name=lastname, id=empid)
+                if emp:
+                    self.listEmployees()
+                else:
+                    print("erro ao inserir")
+
+            elif(option == '3'): 
+                empid = input("digite o id\n")
+
+                emp = self.searchEmployee(int(empid))
+                if emp:
+                    name = input("digite o nome: \n")
+                    lastname = input("digite o ultimo nome:\n")
+                    idemp = int(empid)
+                    self.updateEmployee(emp, name, lastname, idemp)
+                    self.listEmployees()
+                else:
+                    print("nao encontrado")
+            elif(option == '4'): 
+                empid = input("digite o id\n")
+
+                rememp = self.deleteEmployee(int(empid))
+                if rememp:
+                    self.listEmployees()
+                    print("removido")
+                else:
+                    print("nao encontrado")
+            else: 
+                break
 
     def showmenuAdminItem(self):
         while(True):

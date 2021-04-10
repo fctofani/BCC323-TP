@@ -165,7 +165,8 @@ class Employee:
                     self.listClients()
                 else:
                     print('erro ao remover cliente')
-            elif(option == '5'): break
+            else: 
+                break
 
     def showMenuItems(self):
         while(True):
