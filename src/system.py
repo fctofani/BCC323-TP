@@ -28,14 +28,11 @@ class System:
         self.employeeContainer.append(CommonEmployee(
             first_name = "Ademir",last_name =  "edivaldo", id = 993
         ))
-<<<<<<< HEAD
-        self.employeeContainer.append(self.admin.createCommonEmployee(
-            first_name = "marlon", last_name = "ponei", id = 994
-=======
+
         self.employeeContainer.append(CommonEmployee(
-            first_name = "marlon", last_name = "ponei", id =994
->>>>>>> bb376c591c81eff8c17fc04643c5cbac1299ff80
+            first_name = "marlon", last_name = "ponei", id = 994
         ))
+
 
         '''Create Clients by Admin'''
         #Insert client 1
@@ -82,32 +79,32 @@ class System:
         
     def generateItems(self):
         self.itemsContainer.append(Items(
-            "item1",
-            1,
-            20,
-            "item top",
-            "available"
+            name="item1",
+            id_item=1,
+            value=20,
+            description="item top",
+            status="available"
         ))
         self.itemsContainer.append(Items(
-            "item2",
-            2,
-            50,
-            "item fera",
-            "available"
+            name="item2",
+            id_item=2,
+            value=50,
+            description="item fera",
+            status="available"
         ))
         self.itemsContainer.append(Items(
-            "item3",
-            3,
-            990,
-            "item caro",
-            "available"
+            name="item3",
+            id_item=3,
+            value=990,
+            description="item caro",
+            status="available"
         ))
         self.itemsContainer.append(Items(
-            "item4",
-            4,
-            110.5,
-            "item show",
-            "available"
+            name="item4",
+            id_item=4,
+            value=110.5,
+            description="item show",
+            status="available"
         ))
 
         

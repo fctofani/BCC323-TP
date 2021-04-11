@@ -19,23 +19,21 @@ class Employee:
     def createClient(self, first_name, last_name, cpf, email,phone):
         client = Client(first_name, last_name, cpf, email,phone)
         globalContent.database.clientContainer.append(client)
-        return client
+
         
     def searchClient(self, cpf):
         for i in globalContent.database.clientContainer:
             if i.cpf == cpf:
                 return i
-        print("cliente não encontrado")
+
         
     def deleteClient(self, cpf):
         for i in globalContent.database.clientContainer:
             if i.cpf == cpf:
-                print(i.cpf)
-                print(cpf)
                 globalContent.database.clientContainer.remove(i)
-                print("cliente removido")
+
                 return True
-        print("cliente não encontrado")             
+
         return False
         
     def updateClient(self, client, 
@@ -89,8 +87,10 @@ class Employee:
     def updateItem(self, item, item_name="", id_item=-1,
         value=-1, description="", status = ""
     ):
+
         for i in globalContent.database.itemsContainer:
             if i == item:
+
                 if item_name == "": i.item_name = i.item_name
                 else:
                     i.item_name = item_name
@@ -125,39 +125,17 @@ class Employee:
             idx = idx + 1
         
     def showMenuClients(self):
-        while(True):
-            option = input('\n----- MENU Clients ----- \n'
-                            + '(1) - Listar Clientes\n'
-                            + '(2) - Adicionar Cliente\n'
-                            + '(3) - Editar Cliente\n'
-                            + '(4) - Remover Cliente\n'
-                            + '(5) - SAIR\n')
-            
-            if(option == '1'): self.listClients()
-            elif(option == '2'):
+        while (True):
+            option = input('\n----- MENU ITENS ----- \n'
+                           + '(1) - Listar Clientes\n'
+                           + '(2) - Adicionar Cliente\n'
+                           + '(3) - Editar Cliente\n'
+                           + '(4) - Remover Cliente\n'
+                           + '(5) - SAIR\n')
 
-                first_name = input("Primeiro nome: ")
-                last_name = input("Ultimo nome:")
-                cpf = input("CPF: ")
-                email = input("Email: ")
-                phone = input("Phone: ")
-                cli = self.createClient(first_name, last_name, cpf, email, phone)
-                globalContent.database.clientContainer.append(cli)
-            elif(option == '3'):
-                cpf = input("CPF do cliente que você deseja buscar: ")
-                cli = self.searchClient(cpf)
-                first_name = input("Primeiro nome: ")
-                last_name = input("Ultimo nome: ")
-                cpf = input("CPF: ")
-                email = input("Email: ")
-                phone = input("Phone: ")
-                self.updateClient(cli, first_name, last_name, cpf, email, phone)
-            elif(option == '4'):
-                cpf = input("Digite o cpf do cliente a ser removido")
-                self.deleteClient(cpf)
-
-            elif(option == '5'): break
-
+            if (option == '1'):
+                self.listClients()
+            elif (option == '2'):
                 name = input('digite o nome\n')
                 lastName = input('ultimo nome\n')
                 cpf = input('digite o cpf\n')
@@ -165,8 +143,8 @@ class Employee:
                 email = input('digite o email\n')
                 self.createClient(name, lastName, cpf, email, phone)
                 self.listClients()
-            elif(option == '3'): 
-                searchcpf = input('degite o cpf\n')
+            elif (option == '3'):
+                searchcpf = input('digite o cpf\n')
                 client = self.searchClient(searchcpf)
 
                 if (client):
@@ -177,18 +155,21 @@ class Employee:
                     phone = input('digite o telefone\n')
                     email = input('digite o email\n')
 
-                    self.updateClient(client, name, lastName, cpf, phone, email)
+                    self.updateClient(client=client, first_name=name,
+                                      last_name=lastName, cpf=cpf,
+                                      phone=phone,
+                                      email=email)
                     self.listClients()
                 else:
                     print("erro")
-            elif(option == '4'): 
+            elif (option == '4'):
                 cpf = input('digite o cpf\n')
                 deleted = self.deleteClient(cpf)
                 if deleted:
                     self.listClients()
                 else:
                     print('erro ao remover cliente')
-            else: 
+            else:
                 break
 
 
@@ -214,14 +195,14 @@ class Employee:
                 self.giveBack(client)
                 self.listClients()
             elif(option == '4'):
-                iditem = input('identificador do item: \n')
+                iditem = int(input('identificador do item: \n'))
                 item = self.searchItem(iditem)
-
+                print(item)
                 name = input('digite o novo nome:\n')
                 value = input('digite o novo valor: \n')
                 desc = input('digite a nova descrição\n')
 
-                self.updateItem(item, name, -1, value, desc, "")
+                self.updateItem(item=item, item_name=name, value=value, description=desc)
                 self.listItems()
             else:
                 break
