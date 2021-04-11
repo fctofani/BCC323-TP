@@ -18,7 +18,8 @@ class CommonEmployee(Employee):
                             + '(3) - SAIR\n')
             if(option == '1'): self.showMenuItems()
             elif(option == '2'): self.showMenuClients()
-            elif(option == '3'): break
+            else: 
+                break
 
 
                 

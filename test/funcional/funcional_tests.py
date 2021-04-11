@@ -7,16 +7,19 @@ import globalContent
 
 class Funcional_CommonEmployee(unittest.TestCase):
     def test_funcional_commonEmp(self):
-        client1 = CommonEmployee.createClient(self, first_name="Fulano",
+        CommonEmployee.createClient(self, first_name="Fulano",
                                               last_name="test", cpf="133.444.566-72",
                                               email="email@email.com", phone="1279317")
 
-        client2 = CommonEmployee.createClient(self, first_name="Ciclano",
+        CommonEmployee.createClient(self, first_name="Ciclano",
                                               last_name="vintedois", cpf="444.222.566-72",
                                               email="ciclano@email.com", phone="9999261")
 
-        globalContent.database.clientContainer.append(client1)
-        globalContent.database.clientContainer.append(client2)
+        client1= CommonEmployee.searchClient(self, "133.444.566-72")
+        client2= CommonEmployee.searchClient(self, "444.222.566-72")
+
+        self.assertNotEqual(client1, None)
+        self.assertNotEqual(client2, None)
 
         CommonEmployee.updateClient(self, client1, first_name="Beltrano",
                                     last_name="Aroldo", email="email@jesus.com")
@@ -27,6 +30,8 @@ class Funcional_CommonEmployee(unittest.TestCase):
 
         client1 = CommonEmployee.searchClient(self, "133.444.566-72")
         client2 = CommonEmployee.searchClient(self, "997.143.777-91")
+        self.assertNotEqual(client1, None)
+        self.assertNotEqual(client2, None)
 
         self.assertEqual(client1.first_name, "Beltrano")
         self.assertEqual(client1.last_name, "Aroldo")
@@ -41,6 +46,11 @@ class Funcional_CommonEmployee(unittest.TestCase):
 
         item2 = CommonEmployee.searchItem(self, 2)
         item3 = CommonEmployee.searchItem(self, 3)
+
+        self.assertNotEqual(item1, None)
+        self.assertNotEqual(item2, None)
+        self.assertNotEqual(item3, None)
+
 
 
 
@@ -64,30 +74,38 @@ class Funcional_CommonEmployee(unittest.TestCase):
 
 class Funcional_AdminEmployee(unittest.TestCase):
     def test_funcional_adminEmp(self):
-        client = AdminEmployee.createClient(self, first_name="Fulano",
+        AdminEmployee.createClient(self, first_name="Fulano",
                                             last_name="test", cpf="133.444.566-72",
                                             email="email@email.com", phone="1279317")
 
 
-        item1 = AdminEmployee.createItem(self, item_name="item Y",
+        AdminEmployee.createItem(self, item_name="item Y",
                                          id_item=55, value=44.5, description="Item qualquer",
                                          status="available")
-        item2 = AdminEmployee.createItem(self, item_name="item Z",
+        AdminEmployee.createItem(self, item_name="item Z",
                                          id_item=98, value=88.5, description="Item XO",
                                          status="available")
 
+        client = AdminEmployee.searchClient(self,"133.444.566-72")
+        item1 = AdminEmployee.searchItem(self, 55)
+        item2 = AdminEmployee.searchItem(self, 98)
+
+        self.assertNotEqual(client, None)
+        self.assertNotEqual(item1, None)
+        self.assertNotEqual(item2, None)
 
         r1 = AdminEmployee.rent(self, item1, client)
         r2 = AdminEmployee.rent(self, item2, client)
+
         self.assertEqual(r1, True)
         self.assertEqual(r2, True)
 
-        AdminEmployee.deleteItem(self, globalContent.database.itemsContainer, 98)
+        AdminEmployee.deleteItem(self, 98)
 
         it = AdminEmployee.searchItem(self, 98)
 
-        self.assertEqual(it, None)
-        self.assertNotIn(it, globalContent.database.itemsContainer)
+        self.assertNotEqual(it, None) #Itens alugados não podem ser removidos
+        self.assertIn(it, globalContent.database.itemsContainer)
 
 
 

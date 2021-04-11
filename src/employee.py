@@ -9,7 +9,7 @@ class Employee:
         self.first_name = kwargs['first_name']
         self.last_name = kwargs['last_name']
         self.id = kwargs['id']
-    
+
     def __str__(self):
         return "First Name: {}, Last Name: {}, ID: {}".format(
             self.first_name, self.last_name, self.id
@@ -18,18 +18,23 @@ class Employee:
 
     def createClient(self, first_name, last_name, cpf, email,phone):
         client = Client(first_name, last_name, cpf, email,phone)
-        return client
+        globalContent.database.clientContainer.append(client)
+
         
     def searchClient(self, cpf):
         for i in globalContent.database.clientContainer:
-            if i.cpf == cpf :
+            if i.cpf == cpf:
                 return i
+
         
     def deleteClient(self, cpf):
         for i in globalContent.database.clientContainer:
             if i.cpf == cpf:
                 globalContent.database.clientContainer.remove(i)
-                
+
+                return True
+
+        return False
         
     def updateClient(self, client, 
         first_name = "", last_name = "",
@@ -70,11 +75,22 @@ class Employee:
             client.rentedItems.append(item) #status alugado
             return True
 
+    def giveBack(self, client):
+        if len(client.rentedItems) > 0:
+            for i in client.rentedItems:
+                i.status = 'available'
+                client.rentedItems.remove(i)
+                print(i.item_name + " devolvido")
+        else:
+            print("cliente não possui itens emprestados")
+
     def updateItem(self, item, item_name="", id_item=-1,
         value=-1, description="", status = ""
     ):
+
         for i in globalContent.database.itemsContainer:
             if i == item:
+
                 if item_name == "": i.item_name = i.item_name
                 else:
                     i.item_name = item_name
@@ -109,26 +125,62 @@ class Employee:
             idx = idx + 1
         
     def showMenuClients(self):
-        while(True):
+        while (True):
             option = input('\n----- MENU ITENS ----- \n'
-                            + '(1) - Listar Clientes\n'
-                            + '(2) - Adicionar Cliente\n'
-                            + '(3) - Editar Cliente\n'
-                            + '(4) - Remover Cliente\n'
-                            + '(5) - SAIR\n')
-            
-            if(option == '1'): self.listClients()
-            elif(option == '2'): print('Ainda não desenvolvido totalmente.')
-            elif(option == '3'): print('Ainda não desenvolvido totalmente.')
-            elif(option == '4'): print('Ainda não desenvolvido totalmente.')
-            elif(option == '5'): break
+                           + '(1) - Listar Clientes\n'
+                           + '(2) - Adicionar Cliente\n'
+                           + '(3) - Editar Cliente\n'
+                           + '(4) - Remover Cliente\n'
+                           + '(5) - SAIR\n')
+
+            if (option == '1'):
+                self.listClients()
+            elif (option == '2'):
+                name = input('digite o nome\n')
+                lastName = input('ultimo nome\n')
+                cpf = input('digite o cpf\n')
+                phone = input('digite o telefone\n')
+                email = input('digite o email\n')
+                self.createClient(name, lastName, cpf, email, phone)
+                self.listClients()
+            elif (option == '3'):
+                searchcpf = input('digite o cpf\n')
+                client = self.searchClient(searchcpf)
+
+                if (client):
+                    print("\n --- dados para editar: \n")
+                    name = input('digite o nome\n')
+                    lastName = input('ultimo nome\n')
+                    cpf = input('digite o cpf\n')
+                    phone = input('digite o telefone\n')
+                    email = input('digite o email\n')
+
+                    self.updateClient(client=client, first_name=name,
+                                      last_name=lastName, cpf=cpf,
+                                      phone=phone,
+                                      email=email)
+                    self.listClients()
+                else:
+                    print("erro")
+            elif (option == '4'):
+                cpf = input('digite o cpf\n')
+                deleted = self.deleteClient(cpf)
+                if deleted:
+                    self.listClients()
+                else:
+                    print('erro ao remover cliente')
+            else:
+                break
+
 
     def showMenuItems(self):
         while(True):
             option = input('\n----- MENU ITENS ----- \n'
                             + '(1) - Listar Itens\n'
                             + '(2) - Alugar Item\n'
-                            + '(3) - SAIR\n')
+                            + '(3) - Devolver Item\n'
+                            + '(4) - Atualizar Item\n'
+                            + '(5) - SAIR\n')
 
             if(option == '1'): self.listItems()
             elif(option == '2'):
@@ -137,6 +189,23 @@ class Employee:
                 self.listClients()
                 client = input('\nCliente a alugar: ')
                 self.rent(globalContent.database.itemsContainer[int(item) - 1], globalContent.database.clientContainer[int(client) - 1])
-            elif(option == '3'): break
+            elif(option == '3'):
+                cpf = input('\n digite o cpf do cliente que vai devolver: \n')
+                client = self.searchClient(cpf)
+                self.giveBack(client)
+                self.listClients()
+            elif(option == '4'):
+                iditem = int(input('identificador do item: \n'))
+                item = self.searchItem(iditem)
+                print(item)
+                name = input('digite o novo nome:\n')
+                value = input('digite o novo valor: \n')
+                desc = input('digite a nova descrição\n')
+
+                self.updateItem(item=item, item_name=name, value=value, description=desc)
+                self.listItems()
+            else:
+                break
+
 
 
